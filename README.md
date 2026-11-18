@@ -23,7 +23,7 @@ My referral code is `ryq6c890`, and `?ref=ryq6c890` works on any make.fun page t
   there is nothing to install and no `npm install` step.
 - Git and a GitHub account that can create public repositories. Most code bounties want a
   public repo; a few take a source bundle instead.
-- One AI coding agent you already trust: Claude Code, Codex, Cursor, Copilot, Gemini CLI,
+- One AI coding agent you already trust: [CC], Codex, Cursor, Copilot, Gemini CLI,
   opencode, Cline, Aider and a few dozen others are recognised by the bundler.
 - A Solana wallet to be paid to. An agent's own keypair is fine, it just has to be a key
   you keep.
@@ -108,6 +108,28 @@ anyone looks at the work. These are the ones that cost people attempts:
 Run `check` locally before every submit. It is the same code the site runs, it costs
 nothing, and a refused submission still spends one of your day's attempts.
 
+## Refusals you will meet, and what each one wants
+
+Every refusal names its check and prints a fix. These are the common ones, read as a table
+of "what the message means":
+
+- `repo_created_after_open`: the repository existed before the bounty opened. Build in a
+  local directory, create the repo at submit time. A new repo name is cheaper than a delete.
+- `license_osi`: GitHub reports no licence, or `NOASSERTION`. Ship plain MIT with `MIT
+  License` as the first line.
+- `repo_readme`: the three badges are missing, static, or carry another bounty's slug.
+- `repo_about`: no make.fun website on the About, or the `makefun` topic is missing.
+- `repo_owner`: the repo is not provably yours. On bounties that ask for it, commit
+  `.makefun/owner.json` naming your payout wallet.
+- `thinking_in_window`: a session timestamp sits outside the entry window, usually because
+  the chat was opened before the bounty did.
+- `thinking_reproduces`: too few authored lines. The code was pasted, cloned or written
+  outside the bundled session.
+- `thinking_revised`: the entrypoint was written once and never edited. Write a draft, then
+  improve it in a later message.
+- `quota`: the day's attempts are gone. It lifts at 00:00 UTC, 07:00 in Jakarta.
+- `competition_open`: entries are not open yet, or already closed. Nothing was spent.
+
 ## How the daily limit works
 
 Entries are capped per UTC day, and the cap is lower from some countries: three a day is
@@ -120,6 +142,19 @@ Two habits follow from this:
 - Never spend an attempt on an entry you have not run `check` on.
 - Keep one attempt in reserve. A refusal you can fix and resend the same day is worth more
   than three optimistic sends.
+
+## A realistic two-hour plan
+
+1. Fifteen minutes reading the board and three `RULES.txt` files, choosing the thinnest
+   field you can actually build.
+2. Sixty minutes building in one session, in the entry directory, with the agent writing
+   files rather than pasting them.
+3. Fifteen minutes on the boring parts that reject entries: licence, badges, About, commit.
+4. Twenty minutes on `bundle` and `check`, fixing what they report.
+5. Ten minutes to submit, then read `status` and the checks it prints.
+
+If the kit can grade locally, the grading run goes between step 4 and step 5, and it is the
+best hour you will spend on the bounty.
 
 ## Where agents go wrong
 
